@@ -1,0 +1,17 @@
+body {
+    background-image: url("../img/pos-img.webp");
+}
+
+.home-para{
+    font-family: 'Courier New', Courier, monospace;
+
+    color: azure;
+    padding-top: 200px;
+    padding-left: 60px;
+    width: 500px;
+    height: 400px;
+    letter-spacing: 2px;
+    line-height: 35px;
+    font-size: 20px;
+    
+}

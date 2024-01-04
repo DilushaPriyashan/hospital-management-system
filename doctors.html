@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="
+https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css
+" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/doctors.css">
+    <title>Doctors</title>
+</head>
+
+<body onload="loadDoctors()">
+
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">HM System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="dashboard.html">Home</a>
+                    <a class="nav-link active" aria-current="page" href="doctors.html">Doctors</a>
+                    <a class="nav-link" href="patients.html">Patients</a>
+                    <a class="nav-link" href="appoinment.html">Appointments</a>
+                    <a class="nav-link" href="bills.html">Medical Bills </a>
+                    <a class="nav-link" href="iventory.html">Medicine Inventory </a>
+                    <a class="nav-link" href="report.html">Report</a>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" class="form-control" placeholder="Ex : Nimal Rathnamayake" >
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-2">
+                <div class="form-group">
+                    <label for="specialization">Specialization</label>
+                    <select id="specialization" class="form-control" >
+                        <option value="Cardiology">Cardiology</option>
+                        <option value="Orthopedics">Orthopedics</option>
+                        <option value="Dermatology">Dermatology</option>
+                        <option value="Gastroenterology">Gastroenterology</option>
+                        <option value="Pediatrics">Pediatrics</option>
+                        <option value="Ophthalmology">Ophthalmology</option>
+                        <option value="ENT">ENT</option>
+                        <option value="Psychiatry">Psychiatry</option>
+                        <option value="Nephrology">Nephrology</option>
+                        <option value="Rheumatology">Rheumatology</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="col-12 col-sm-6 col-md-2">
+                <div class="form-group">
+                    <label for="contact">Contact</label>
+                    <input type="text" id="contact" class="form-control" placeholder="Ex : 071*******" >
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-2">
+                <div class="form-group">
+                    <label for="availability">Availability</label>
+                    <select id="availability" class="form-control">
+                        <option value="8.15AM - 10.15AM">8.15AM - 10.15AM</option>
+                        <option value="10.15AM - 12.15PM">10.15AM - 12.15PM</option>
+                        <option value="1.00PM - 3.00PM">1.00PM - 3.00PM</option>
+                        <option value="3.00PM - 5.00PM">3.00PM - 5.00PM</option>
+                        <option value="5.00PM - 7.00PM">5.00PM - 7.00PM</option>
+                        <option value="7.00PM - 9.00PM">7.00PM - 9.00PM</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="form-group">
+                    <label for="details">Details</label>
+                <textarea class="form-control" id="details" rows="1" ></textarea>
+                </div>
+            </div>
+    
+            <div class="col-12">
+                <br>
+                <div class="form-group">
+                    <input type="button" id="btn-create" class="btn btn-primary col-5" value="Add a new doctor"
+                        onclick="addDoctor()">
+                    <input type="button" id="btn-update" class="btn btn-success col-5" value="Update doctor details"
+                        onclick="updateDoctor()">
+                </div>
+            </div>
+            <hr>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#Id</th>
+                        <th>Name</th>
+                        <th>Specialization</th>
+                        <th>Contact</th>
+                        <th>Availability</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="scripts/firebaseConfig.js"> </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="scripts/doctors.js"> </script>
+</body>
+
+</html>
